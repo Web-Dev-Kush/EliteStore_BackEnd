@@ -5,7 +5,6 @@ const UserSchema = require('../modals/User')
 // POST /api/user
 router.post("/", async (req, res) => {
   const { fname, lname, email, contactNumber, address } = req.body;
-
   try {
     const newContact = await  UserSchema.create({
       fname,
@@ -15,8 +14,10 @@ router.post("/", async (req, res) => {
       address,
     });
     await newContact.save();
-    res.status(201).json({ message: "User added successfully!" });
+    res.status(201).json({ message: "User added successfully!" ,data:newContact});
   } catch (err) {
+console.log("err",err)
+
     res.status(500).json({ error: "Server Error...." });
   }
 });
